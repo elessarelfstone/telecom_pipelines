@@ -1,0 +1,15 @@
+{
+ "url":"http://stat.gov.kz/getImg?id=ESTAT116572",
+ "name": "statgov_oked",
+ "storage": {
+   "store": "web",
+   "location_type": "url",
+   "entity": "file",
+   "type" : "xlsx"
+ },
+ "structure": ["code", "name_kaz", "name_rus"],
+ "skiprows": 4,
+ "sheets" : [0],
+ "index": "code",
+ "description": "Общий классификатор видов экономической деятельности"
+}
