@@ -1,0 +1,15 @@
+{
+ "url":"http://stat.gov.kz/getImg?id=ESTAT181313",
+ "name": "statgov_nved",
+  "storage": {
+   "store": "web",
+   "location_type": "url",
+   "entity": "file",
+   "type" : "xlsx"
+ },
+ "structure": ["code", "name_kaz", "name_rus"],
+ "skiprows": 4,
+ "index": "code",
+ "description": "Номенклатура видов экономической деятельности",
+ "sheets" : [0]
+}
