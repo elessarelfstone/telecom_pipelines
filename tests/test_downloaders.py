@@ -87,3 +87,76 @@ class TestStatGovDownload(unittest.TestCase):
         file_paths = service.download()
         self.assertTrue(_all_downloaded(file_paths))
 
+
+class TestKgdGovDownload(unittest.TestCase):
+    def setUp(self):
+        directory = os.getenv("TEMP_DIR")
+        statgov_files = os.listdir(utils.WEB_SOURCES_ROOT)
+        statgov_files = filter(lambda x: re.search("^[^_]+_kgdgov", x), statgov_files)
+        statgov_files = [os.path.join(directory, f) for f in statgov_files]
+        for f in statgov_files:
+            if os.path.exists(f):
+                os.remove(f)
+
+    def test_bankrupt_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_bankrupt.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_inactive_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_inactive.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_invalid_registration_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_invalid_registration.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_pseudo_company_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_pseudo_company.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_tax_arrears_150_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_tax_arrears_150.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_violation_tax_code_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_violation_tax_code.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
+
+    def test_wrong_address_download_by_url(self):
+        src_conf_path = os.path.join(utils.WEB_SOURCES_ROOT, 'web_kgdgov_wrong_address.json')
+        with open(src_conf_path, "r", encoding="utf8") as f:
+            json_raw = f.read()
+        handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
+        service = Downloader(json_raw, handler)
+        file_path = service.download()
+        self.assertTrue(os.path.exists(file_path))
