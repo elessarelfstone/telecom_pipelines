@@ -18,8 +18,6 @@ class DownloadByUrlToFile():
                 f.write(result.content)
             return target
         except Exception as e:
-            if os.path.exists(target):
-                os.remove(target)
             raise e
 
     @staticmethod
@@ -40,9 +38,6 @@ class DownloadByUrlListToFile():
                     f.write(result.content)
             return target
         except Exception as e:
-            for path in self.urls(instance.conf):
-                if os.path.exists(path):
-                    os.remove(path)
             raise e
 
     @staticmethod
