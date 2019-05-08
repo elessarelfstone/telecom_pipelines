@@ -1,6 +1,10 @@
-import os
 import json
+import os
+
 from box import Box
+
+from settings import TEMP_PATH
+
 
 
 class Source:
@@ -25,9 +29,9 @@ class HandlersFactory:
 
 
 class Downloader(Source):
-    def __init__(self, conf, handler=None):
+    def __init__(self, conf, directory, handler=None):
         self.action = None
-        self.directory = os.getenv("TEMP_DIR")
+        self.directory = directory
         os.makedirs(self.directory, exist_ok=True)
         super(Downloader, self).__init__(conf)
         if handler:
