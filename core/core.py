@@ -3,9 +3,6 @@ import os
 
 from box import Box
 
-from settings import TEMP_PATH
-
-
 
 class Source:
     def __init__(self, conf):
@@ -29,24 +26,48 @@ class HandlersFactory:
 
 
 class Downloader(Source):
-    def __init__(self, conf, directory, handler=None):
+    def __init__(self, conf, handler=None):
         self.action = None
-        self.directory = directory
-        os.makedirs(self.directory, exist_ok=True)
         super(Downloader, self).__init__(conf)
         if handler:
             self.action = handler()
 
     def download(self):
         if self.action:
-            return self.action.download(self, self.path(self.conf, self.directory))
+            path = self.path(self.conf)
+            return self.action.download(self, path)
 
     @staticmethod
-    def path(conf, directory):
+    def path(conf):
         action = HandlersFactory.get_handler(Downloader.handler_name(conf))
-        return action().path(conf, directory)
+        return action().path(conf)
 
     @staticmethod
     def handler_name(conf):
         name = "download_" + Box(json.loads(conf)).storage.location_type
+        return name
+
+
+class Extractor(Source):
+
+    def __init__(self, conf, file, handler=None):
+        self.action = None
+        self.file = file
+        super(Extractor, self).__init__(conf)
+        if handler:
+            self.action = handler()
+
+    def extract(self):
+        if self.action:
+            path = self.path(self.conf, self.file)
+            return self.action.extract(self, path)
+
+    @staticmethod
+    def path(conf, file):
+        action = HandlersFactory.get_handler(Extractor.handler_name(conf))
+        return action().path(conf, file)
+
+    @staticmethod
+    def handler_name(conf):
+        name = "extract_" + Box(json.loads(conf)).storage.entity
         return name

@@ -10,6 +10,8 @@ ENVS_ROOT = path.join(ROOT, 'env')
 DEV_ENV_DIR = path.join(ENVS_ROOT, 'dev', '.env')
 PROD_ENV_DIR = path.join(ENVS_ROOT, 'prod', '.env')
 
+os.environ["ENV"] = "dev"
+
 if os.environ["ENV"] == "dev":
     load_dotenv(DEV_ENV_DIR)
 else:
