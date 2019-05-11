@@ -27,7 +27,7 @@ class DownloaderByUrlToFile():
     def path(conf):
         name = Box(json.loads(conf)).name
         ext = Box(json.loads(conf)).storage.type
-        directory = os.path.join(TEMP_PATH, Utils.uuid())
+        directory = TEMP_PATH
         os.makedirs(directory, exist_ok=True)
         return os.path.join(directory, "{}.{}".format(name, ext))
 
@@ -61,7 +61,7 @@ class DownloaderByUrlListToFile():
         name = Box(json.loads(conf)).name
         ext = Box(json.loads(conf)).storage.type
         urls = DownloaderByUrlListToFile.urls(conf)
-        directory = os.path.join(TEMP_PATH, Utils.uuid())
+        directory = TEMP_PATH
         os.makedirs(directory, exist_ok=True)
         return [os.path.join(directory, "{}_{}.{}".format(name, i, ext)) for i, url in enumerate(urls)]
 

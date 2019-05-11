@@ -29,14 +29,10 @@ class TestStatGovExtract(unittest.TestCase):
     def test_companies_files_extract(self):
         src_conf_path = os.path.join(WEB_SOURCES_CONFIG_DIR, 'web_statgov_companies.json')
         json_raw = Utils.read_file(src_conf_path)
-        # name = Box(json.loads(json_raw)).name
         download_handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
         service = Downloader(json_raw, download_handler)
         downloaded_files_path = service.download()
         extract_handler = HandlersFactory.get_handler(Extractor.handler_name(json_raw))
-        all_files = list()
-        for f in downloaded_files_path:
-            service = Extractor(json_raw, f, extract_handler)
-            extracted_files_path = service.extract()
-            all_files.extend(extracted_files_path)
+        service = Extractor(json_raw, downloaded_files_path, TEMP_PATH, extract_handler)
+        all_files = service.extract()
         self.assertTrue(Utils.all_exists(all_files))

@@ -50,24 +50,28 @@ class Downloader(Source):
 
 class Extractor(Source):
 
-    def __init__(self, conf, file, handler=None):
+    def __init__(self, conf, file, directory, handler=None):
         self.action = None
         self.file = file
+        self.directory = directory
         super(Extractor, self).__init__(conf)
         if handler:
             self.action = handler()
 
     def extract(self):
         if self.action:
-            path = self.path(self.conf, self.file)
+            path = self.path(self.conf, self.directory)
             return self.action.extract(self, path)
 
     @staticmethod
-    def path(conf, file):
+    def path(conf, directory):
         action = HandlersFactory.get_handler(Extractor.handler_name(conf))
-        return action().path(conf, file)
+        return action().path(conf, directory)
 
     @staticmethod
     def handler_name(conf):
+        suffix = ''
         name = "extract_" + Box(json.loads(conf)).storage.entity
-        return name
+        if 'list' in Box(json.loads(conf)).storage.location_type:
+            suffix = 's'
+        return name + suffix

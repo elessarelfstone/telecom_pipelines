@@ -10,60 +10,62 @@ from core.utils import Utils
 
 
 class ExtractorFile():
-    def extract(self, instance, target_files):
+    @staticmethod
+    def extract(instance, target_files):
         data_format = Box(json.loads(instance.conf)).storage.data_format
-        arch = Utils.get_archive_object(instance.file)
+        arch_obj = Utils.get_archive_object(instance.file)
         file_path = path.abspath(path.dirname(instance.file))
-        for f, f_new in zip(arch.namelist(), target_files):
-            if Utils.ext(f) == data_format:
-                arch.extract(f, file_path)
-                old_path = path.join(file_path, f).replace('/', os.sep)
-                shutil.move(old_path, f_new)
+        for arch_file, new_path in zip(arch_obj.namelist(), target_files):
+            if Utils.ext(arch_file) == data_format:
+                arch_obj.extract(arch_file, file_path)
+                tmp_path = path.join(file_path, arch_file).replace('/', os.sep)
+                shutil.move(tmp_path, new_path)
         return target_files
 
     @staticmethod
-    def path(conf, archive):
-        arch = Utils.get_archive_object(archive)
+    def path(conf, directory):
+        files_num = Box(json.loads(conf)).storage.data_files_num
         name = Box(json.loads(conf)).name
         data_format = Box(json.loads(conf)).storage.data_format
         files = list()
-        file_path = path.abspath(path.dirname(archive))
-        for i, f in enumerate(arch.namelist()):
-            if Utils.ext(f) == data_format:
-                tmp_path = path.join(file_path, f).replace('/', os.sep)
-                new_path = path.abspath(path.dirname(tmp_path))
-                # files.append(os.path.join(new_path, "{}_{}.{}".format(name, i, data_format)))
-                files.append(os.path.join(new_path, "{}_{}.{}".format(name, Utils.uuid(), data_format)))
-
+        for i in range(files_num):
+            files.append(os.path.join(directory, "{}_{}.{}".format(name, i, data_format)))
         return files
 
-#
-# class ExtractorFiles():
-#     def extract(self, instance, target):
-#
-#         data_format = Box(json.loads(instance.conf)).storage.data_format
-#         arch = Utils.get_archive_object(instance.file)
-#         for f, t in zip(arch.namelist(), target):
-#             if Utils.ext(f) == data_format:
-#                 arch.extract(f, instance.directory)
-#                 copyfile(os.path.join(instance.directory, f).replace('/', '\\'), t)
-#         return target
-#
-#     @staticmethod
-#     def path(conf, archive):
-#         archives = archive
-#         files = list()
-#         for i, f in enumerate(archives):
-#             arch = Utils.get_archive_object(f)
-#             name = Box(json.loads(conf)).name
-#             data_format = Box(json.loads(conf)).storage.data_format
-#             files_in_arch = list()
-#             for j, fr in enumerate(arch.namelist()):
-#                 if Utils.ext(fr) == data_format:
-#                     files_in_arch.append(os.path.join(directory, "{}_{}_{}.{}").format(name, i, j, data_format))
-#             return files.extend(files_in_arch)
-#
-#         return files
+
+class ExtractorFiles():
+    @staticmethod
+    def extract(instance, target):
+        targets = target
+        # print(targets)
+        archives = instance.file
+        i = -1
+        for arch in archives:
+            arch_obj = Utils.get_archive_object(arch)
+            data_format = Box(json.loads(instance.conf)).storage.data_format
+            file_path = path.abspath(path.dirname(arch))
+            for file in arch_obj.namelist():
+                if Utils.ext(file) == data_format:
+                    i += 1
+                    arch_obj.extract(file, file_path)
+                    old_path = path.join(file_path, file).replace('/', os.sep)
+                    shutil.move(old_path, targets[i])
+        return targets
+
+    @staticmethod
+    def path(conf, directory):
+        files_num = Box(json.loads(conf)).storage.data_files_num
+        archives_num = Box(json.loads(conf)).storage.data_archives_num
+        name = Box(json.loads(conf)).name
+        data_format = Box(json.loads(conf)).storage.data_format
+        files = list()
+        for i in range(archives_num):
+            for j in range(files_num):
+                files.append(path.join(directory, "{}_{}_{}.{}".format(name, i, j, data_format)))
+        return files
+
+
 
 
 HandlersFactory.register("extract_file", ExtractorFile)
+HandlersFactory.register("extract_files", ExtractorFiles)

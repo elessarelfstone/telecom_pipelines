@@ -13,7 +13,7 @@ class DownloadFile(luigi.Task):
 
     def output(self):
         src_file = os.path.join(WEB_SOURCES_CONFIG_DIR, self.sourcefile)
-        path = Downloader.path(utils.Utils.read_file(src_file), TEMP_PATH)
+        path = Downloader.path(utils.Utils.read_file(src_file))
         if isinstance(path, str):
             return luigi.LocalTarget(path)
         else:
@@ -24,5 +24,5 @@ class DownloadFile(luigi.Task):
         with open(src_file, "r", encoding="utf8") as f:
             json_raw = f.read()
         handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
-        service = Downloader(json_raw, TEMP_PATH, handler)
+        service = Downloader(json_raw, handler)
         service.download()

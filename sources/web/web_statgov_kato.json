@@ -6,7 +6,8 @@
    "location_type": "url",
    "entity": "file",
    "type" : "rar",
-   "data_format": "xls"
+   "data_format": "xls",
+   "data_files_num": 2
  },
  "structure": ["te", "ab", "cd", "ef", "hij", "k", "name_kaz", "name_rus", "nn"],
  "skiprows": 1,

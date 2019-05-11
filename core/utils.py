@@ -29,8 +29,10 @@ class Utils():
     def get_archive_object(file):
         if Utils.ext(file) == 'rar':
             archive = RarFile(file)
-        elif Utils.ext(file) == 'zip':
+            # Utils.ext(file) == 'zip':
+        else:
             archive = zipfile.ZipFile(file)
+        # print(archive)
         return archive
 
     @staticmethod
