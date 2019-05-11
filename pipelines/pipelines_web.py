@@ -1,4 +1,5 @@
 from pipelines.pipeline_download import DownloadFile
+from pipelines.pipeline_extract import ExtractFile, ExtractFiles
 
 # statgov
 
@@ -21,12 +22,15 @@ class StatGovKURK(DownloadFile):
 class StatGovMKEIS(DownloadFile):
     pass
 
+#
+# class StatGovKATO(DownloadFile):
+#     pass
 
-class StatGovKATO(DownloadFile):
+class StatGovKATO(ExtractFile):
     pass
 
 
-class StatGovCompanies(DownloadFile):
+class StatGovCompanies(ExtractFiles):
     pass
 
 # kgdgov

@@ -1,4 +1,10 @@
+import os
+import uuid
+import zipfile
+from pathlib import Path
 from urllib.parse import urlparse
+
+from rarfile import RarFile
 
 
 class Utils():
@@ -14,4 +20,31 @@ class Utils():
         result = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
         return result
 
+    @staticmethod
+    def ext(file):
+        suffix = Path(file).suffix
+        return suffix[1:len(suffix)]
+
+    @staticmethod
+    def get_archive_object(file):
+        if Utils.ext(file) == 'rar':
+            archive = RarFile(file)
+            # Utils.ext(file) == 'zip':
+        else:
+            archive = zipfile.ZipFile(file)
+        # print(archive)
+        return archive
+
+    @staticmethod
+    def all_exists(paths):
+        result = True
+        for path in paths:
+            if not os.path.exists(path):
+                result = False
+                break
+        return result
+
+    @staticmethod
+    def uuid(chars_num=23):
+        return str(uuid.uuid4())[:chars_num]
 

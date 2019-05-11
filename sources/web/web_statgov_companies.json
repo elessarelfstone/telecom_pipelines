@@ -7,7 +7,9 @@
    "location_type": "urllist",
    "entity": "file",
    "type" : "zip",
-   "data_format": "xls"
+   "data_format": "xls",
+   "data_files_num": 1,
+   "data_archives_num": 17
  },
  "structure": ["bin", "full_name_kz", "full_name_ru", "registration_date", "oked_1", "activity_kz", "activity_ru", "oked_2", "krp", "krp_name_kz", "krp_name_ru", "kato", "settlement_kz", "settlement_ru", "legal_address", "head_fio"],
  "skiprows": 4,

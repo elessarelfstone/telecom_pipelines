@@ -2,14 +2,17 @@ import os
 import re
 import json
 import requests
+import uuid
+
 from bs4 import BeautifulSoup
 from box import Box
+
 from core.core import HandlersFactory
 from core.utils import Utils
+from settings import TEMP_PATH
 
 
-class DownloadByUrlToFile():
-
+class DownloaderByUrlToFile():
     def download(self,  instance, target):
         try:
             url = Box(json.loads(instance.conf)).url
@@ -21,16 +24,17 @@ class DownloadByUrlToFile():
             raise e
 
     @staticmethod
-    def path(conf, directory):
-        # src_type = Box(json.loads(instance.conf)).storage.entity
+    def path(conf):
         name = Box(json.loads(conf)).name
         ext = Box(json.loads(conf)).storage.type
+        directory = TEMP_PATH
+        os.makedirs(directory, exist_ok=True)
         return os.path.join(directory, "{}.{}".format(name, ext))
 
 
-class DownloadByUrlListToFile():
+class DownloaderByUrlListToFile():
 
-    def download(self,  instance, target):
+    def download(self, instance, target):
         try:
             for url, path in zip(self.urls(instance.conf), target):
                 result = requests.get(url)
@@ -53,13 +57,15 @@ class DownloadByUrlListToFile():
         return [u if u.startswith("http") else Utils().base_url(url)+u for u in urls]
 
     @staticmethod
-    def path(conf, directory):
+    def path(conf):
         name = Box(json.loads(conf)).name
         ext = Box(json.loads(conf)).storage.type
-        urls = DownloadByUrlListToFile().urls(conf)
+        urls = DownloaderByUrlListToFile.urls(conf)
+        directory = TEMP_PATH
+        os.makedirs(directory, exist_ok=True)
         return [os.path.join(directory, "{}_{}.{}".format(name, i, ext)) for i, url in enumerate(urls)]
 
 
-HandlersFactory.register("download_url", DownloadByUrlToFile)
-HandlersFactory.register("download_urllist", DownloadByUrlListToFile)
+HandlersFactory.register("download_url", DownloaderByUrlToFile)
+HandlersFactory.register("download_urllist", DownloaderByUrlListToFile)
 
