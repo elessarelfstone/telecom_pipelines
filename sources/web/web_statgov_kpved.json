@@ -7,10 +7,19 @@
    "entity": "file",
    "type" : "xls"
  },
- "structure": ["code", "name_kaz", "name_rus"],
- "skiprows": 3,
+ "data": {
+  "header": {
+   "code": "str",
+   "name_kaz": "str",
+   "name_rus": "str"
+  },
+ "area": {
+  "indent": {
+   "top": 3
+  }
+ },
  "index": "code",
  "description": "Классификатор продукции по видам экономической деятельности",
  "sheets" : [0]
+ }
 }
-

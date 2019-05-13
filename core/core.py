@@ -75,3 +75,27 @@ class Extractor(Source):
         if 'list' in Box(json.loads(conf)).storage.location_type:
             suffix = 's'
         return name + suffix
+
+
+class Collector(Source):
+
+    def __init__(self, conf, file, directory, handler=None):
+        self.action = None
+        self.file = file
+        self.directory = directory
+        super(Collector, self).__init__(conf)
+        if handler:
+            self.action = handler()
+
+    def collect(self):
+        pass
+
+    @staticmethod
+    def path(conf, ):
+        pass
+
+    @staticmethod
+    def handler_name(conf):
+        name = "collect_to_" + Box(json.loads(conf)).data_format
+        return name
+

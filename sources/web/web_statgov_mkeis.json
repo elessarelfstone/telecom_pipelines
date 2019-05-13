@@ -7,9 +7,20 @@
    "entity": "file",
    "type" : "xlsx"
  },
- "structure": ["code", "name_kaz", "name_rus"],
- "skiprows": 5,
+ "data": {
+   "header": {
+    "code": "str",
+    "name_kaz": "str",
+    "name_rus": "str"
+   },
+ "area": {
+  "indent": {
+   "top": 3
+  }
+ },
  "index": "code",
  "description": "Межгосударственный классификатор единиц измерения и счета",
  "sheets" : [0]
+ }
 }
+

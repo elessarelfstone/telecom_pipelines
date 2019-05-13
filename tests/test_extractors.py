@@ -36,3 +36,10 @@ class TestStatGovExtract(unittest.TestCase):
         service = Extractor(json_raw, downloaded_files_path, TEMP_PATH, extract_handler)
         all_files = service.extract()
         self.assertTrue(Utils.all_exists(all_files))
+
+    def test_src_conf(self):
+        src_conf_path = os.path.join(WEB_SOURCES_CONFIG_DIR, 'web_kgdgov_bankrupt.json')
+        json_raw = Utils.read_file(src_conf_path)
+        # header = Box(json.loads(json_raw)).data.header
+        header = dict(Box(json.loads(json_raw)).data.header)
+        print(header.keys(), type(header))

@@ -9,10 +9,25 @@
    "data_format": "xls",
    "data_files_num": 2
  },
- "structure": ["te", "ab", "cd", "ef", "hij", "k", "name_kaz", "name_rus", "nn"],
- "skiprows": 1,
+ "data": {
+  "header": {
+   "te": "str",
+   "ab": "str",
+   "cd": "str",
+   "ef": "str",
+   "hij": "str",
+   "k": "str",
+   "name_kaz": ,
+   "name_rus": "str",
+   "nn": "str"
+  },
+  "area": {
+      "indent": {
+        "top": 3
+      }
+  },
+ "sheets" : [0],
  "index": "te",
- "description": "Классификатор административно-территориальных объектов",
- "sheets" : [0]
+ "description": "Классификатор административно-территориальных объектов"
+ }
 }
-
