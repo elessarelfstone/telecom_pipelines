@@ -7,10 +7,20 @@
    "entity": "file",
    "type" : "xls"
  },
- "structure": ["code", "name_kaz", "name_rus"],
- "skiprows": 1,
+ "data": {
+  "header": {
+   "code": "str",
+   "name_kaz": "str",
+   "name_rus": "str"
+  },
+  "area": {
+   "indent": {
+    "top": 1
+   }
+  },
  "index": "code",
  "description": "Кодификатор улиц Республики Казахстан",
  "sheets" : [0]
-}
+ }
+ }
 

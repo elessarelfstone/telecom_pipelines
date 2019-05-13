@@ -7,10 +7,26 @@
    "entity": "file",
    "type" : "xlsx"
  },
- "structure": ["num", "bin", "rnn", "taxpayer_organization", "taxpayer_name", "owner_name", "owner_iin", "owner_rnn",
-         "court_decision", "court_decision_date"],
- "skiprows": 3,
- "sheets" : [0],
- "index": "num",
- "description": "Список налогоплательщиков, признанных банкротами"
+  "data": {
+    "header": {
+      "num": "int",
+      "bin": "str",
+      "rnn": "str",
+      "taxpayer_organization": "str",
+      "taxpayer_name" : "str",
+      "owner_name": "str",
+      "owner_iin" : "str",
+      "owner_rnn" : "str",
+      "court_decision" : "str",
+      "court_decision_date": "date"
+    },
+    "area": {
+      "indent": {
+        "top": 3
+      }
+    },
+    "sheets": [0],
+    "index": "num",
+    "description": "Список налогоплательщиков, признанных банкротами"
+  }
 }

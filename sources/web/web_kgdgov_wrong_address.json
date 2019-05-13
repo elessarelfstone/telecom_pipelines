@@ -7,10 +7,22 @@
    "entity": "file",
    "type" : "xlsx"
  },
- "structure": ["num", "bin", "rnn", "taxpayer_organization", "taxpayer_name", "owner_name", "owner_iin", "owner_rnn",
-         "inspection_act_no", "inspection_date"],
+  "data": {
+    "header": {
+      "num": "int",
+      "bin":"",
+      "rnn": "str",
+      "taxpayer_organization": "str",
+      "taxpayer_name": "str",
+      "owner_name": "str",
+      "owner_iin": "str",
+      "owner_rnn": "str",
+      "inspection_act_no": "str",
+      "inspection_date": "str"
+    },
  "skiprows": 3,
  "sheets" : [0],
  "index": "num",
  "description": "Список налогоплательщиков, отсутствующих по юридическому адресу"
+  }
 }

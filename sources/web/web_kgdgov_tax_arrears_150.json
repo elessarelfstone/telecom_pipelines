@@ -7,12 +7,39 @@
    "entity": "file",
    "type" : "xlsx"
  },
- "structure": ["num", "region", "office_of_tax_enforcement", "ote_id", "bin", "rnn", "taxpayer_organization_ru",
-         "taxpayer_organization_kz", "last_name_kz", "first_name_kz", "middle_name_kz", "last_name_ru", "first_name_ru",
-         "middle_name_ru", "owner_iin", "owner_rnn", "owner_name_kz", "owner_name_ru", "economic_sector", "total_due",
-         "sub_total_main", "sub_total_late_fee", "sub_total_fine"],
- "skiprows": 6,
+ "data": {
+   "header": {
+     "num": "str",
+     "region": "str",
+     "office_of_tax_enforcement": "str",
+     "ote_id": "str",
+     "bin": "str",
+     "rnn": "str",
+     "taxpayer_organization_ru": "str",
+     "taxpayer_organization_kz": "str",
+     "last_name_kz": "str",
+     "first_name_kz": "str",
+     "middle_name_kz": "str",
+     "last_name_ru": "str",
+     "first_name_ru": "str",
+     "middle_name_ru": "str",
+     "owner_iin": "str",
+     "owner_rnn": "str",
+     "owner_name_kz": "str",
+     "owner_name_ru": "str",
+     "economic_sector": "str",
+     "total_due": "str",
+     "sub_total_main": "str",
+     "sub_total_late_fee": "str",
+     "sub_total_fine": "str"
+   },
+  "area": {
+      "indent": {
+        "top": 6
+      }
+    },
  "sheets" : [0, 1],
  "index": "num",
  "description": "Список налогоплательщиков ЮЛ, имеющих налоговую задолженность болле 150 МРП"
+  }
 }
