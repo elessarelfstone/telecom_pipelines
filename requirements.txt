@@ -11,11 +11,15 @@ lockfile==0.12.2
 luigi==2.8.4
 lxml==4.3.3
 mccabe==0.6.1
+numpy==1.16.3
+pandas==0.24.2
 pylint==2.3.1
 python-box==3.4.0
 python-daemon==2.1.2
 python-dateutil==2.8.0
 python-dotenv==0.10.1
+pytz==2019.1
+rarfile==3.0
 requests==2.21.0
 six==1.12.0
 soupsieve==1.9.1
@@ -23,3 +27,4 @@ tornado==4.5.3
 typed-ast==1.3.5
 urllib3==1.24.2
 wrapt==1.11.1
+xlrd==1.2.0

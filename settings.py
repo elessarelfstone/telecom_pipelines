@@ -20,9 +20,13 @@ else:
 
 TEMP_PATH = path.join(expanduser('~'), os.getenv("TEMP_DIR"))
 DATA_PATH = path.join(expanduser('~'), os.getenv("DATA_DIR"))
+WEB_DATA_PATH = path.join(DATA_PATH, "web")
 
 SOURCES_CONFIG_DIR = path.join(ROOT, 'sources')
 WEB_SOURCES_CONFIG_DIR = path.join(SOURCES_CONFIG_DIR, 'web')
+
+JOBS_CONFIG_DIR = path.join(ROOT, 'jobs')
+
 
 TESTS_ROOT = path.join(ROOT, 'tests')
 

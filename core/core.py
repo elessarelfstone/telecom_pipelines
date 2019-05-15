@@ -1,12 +1,11 @@
 import json
-import os
 
 from box import Box
 
 
 class Source:
-    def __init__(self, conf):
-        self.conf = conf
+    def __init__(self, srconf):
+        self.srconf = srconf
 
 
 class HandlersFactory:
@@ -26,76 +25,78 @@ class HandlersFactory:
 
 
 class Downloader(Source):
-    def __init__(self, conf, handler=None):
+    def __init__(self, srconf, handler=None):
         self.action = None
-        super(Downloader, self).__init__(conf)
+        super(Downloader, self).__init__(srconf)
         if handler:
             self.action = handler()
 
     def download(self):
         if self.action:
-            path = self.path(self.conf)
+            path = self.path(self.srconf)
             return self.action.download(self, path)
 
     @staticmethod
-    def path(conf):
-        action = HandlersFactory.get_handler(Downloader.handler_name(conf))
-        return action().path(conf)
+    def path(srconf):
+        action = HandlersFactory.get_handler(Downloader.handler_name(srconf))
+        return action().path(srconf)
 
     @staticmethod
-    def handler_name(conf):
-        name = "download_" + Box(json.loads(conf)).storage.location_type
+    def handler_name(srconf):
+        name = "download_" + Box(json.loads(srconf)).storage.location_type
         return name
 
 
 class Extractor(Source):
 
-    def __init__(self, conf, file, directory, handler=None):
+    def __init__(self, srconf, fpath, dpath, handler=None):
         self.action = None
-        self.file = file
-        self.directory = directory
-        super(Extractor, self).__init__(conf)
+        self.fpath = fpath
+        self.dpath = dpath
+        super(Extractor, self).__init__(srconf)
         if handler:
             self.action = handler()
 
     def extract(self):
         if self.action:
-            path = self.path(self.conf, self.directory)
+            path = self.path(self.srconf, self.dpath)
             return self.action.extract(self, path)
 
     @staticmethod
-    def path(conf, directory):
-        action = HandlersFactory.get_handler(Extractor.handler_name(conf))
-        return action().path(conf, directory)
+    def path(srconf, dpath):
+        action = HandlersFactory.get_handler(Extractor.handler_name(srconf))
+        return action().path(srconf, dpath)
 
     @staticmethod
-    def handler_name(conf):
+    def handler_name(srconf):
         suffix = ''
-        name = "extract_" + Box(json.loads(conf)).storage.entity
-        if 'list' in Box(json.loads(conf)).storage.location_type:
+        name = "extract_" + Box(json.loads(srconf)).storage.entity
+        if 'list' in Box(json.loads(srconf)).storage.location_type:
             suffix = 's'
         return name + suffix
 
 
-class Collector(Source):
-
-    def __init__(self, conf, file, directory, handler=None):
+class XLSParser(Source):
+    def __init__(self, srconf, jobconf, xlspath, dpath, handler=None):
         self.action = None
-        self.file = file
-        self.directory = directory
-        super(Collector, self).__init__(conf)
+        self.jobconf = jobconf
+        self.xlspath = xlspath
+        self.dpath = dpath
+        super(XLSParser, self).__init__(srconf)
         if handler:
             self.action = handler()
 
-    def collect(self):
-        pass
+    def parse(self):
+        if self.action:
+            fpath = self.path(self.srconf, self.jobconf, self.dpath)
+            return self.action.parse(self, fpath)
 
     @staticmethod
-    def path(conf, ):
-        pass
+    def path(srconf, jobconf, dpath):
+        action = HandlersFactory.get_handler(XLSParser.handler_name(jobconf))
+        return action().path(srconf, jobconf, dpath)
 
     @staticmethod
-    def handler_name(conf):
-        name = "collect_to_" + Box(json.loads(conf)).data_format
+    def handler_name(jobconf):
+        name = "parse_to_" + Box(json.loads(jobconf)).data_format
         return name
-
