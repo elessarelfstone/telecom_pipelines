@@ -10,7 +10,7 @@ ENVS_ROOT = path.join(ROOT, 'env')
 DEV_ENV_DIR = path.join(ENVS_ROOT, 'dev', '.env')
 PROD_ENV_DIR = path.join(ENVS_ROOT, 'prod', '.env')
 
-os.environ["ENV"] = "dev"
+# os.environ["ENV"] = "dev"
 
 if os.environ["ENV"] == "dev":
     load_dotenv(DEV_ENV_DIR)
@@ -18,17 +18,26 @@ else:
     load_dotenv(PROD_ENV_DIR)
 
 
+# paths for data
 TEMP_PATH = path.join(expanduser('~'), os.getenv("TEMP_DIR"))
 DATA_PATH = path.join(expanduser('~'), os.getenv("DATA_DIR"))
 WEB_DATA_PATH = path.join(DATA_PATH, "web")
 
+# ftp settings
+FTP_REMOTE_PATH = os.getenv("FTP_PATH")
+FTP_HOST = os.getenv("FTP_HOST")
+FTP_USER = os.getenv("FTP_USER")
+FTP_PASS = os.getenv("FTP_PASS")
+
+# paths for configs
+
 SOURCES_CONFIG_DIR = path.join(ROOT, 'sources')
 WEB_SOURCES_CONFIG_DIR = path.join(SOURCES_CONFIG_DIR, 'web')
-
 JOBS_CONFIG_DIR = path.join(ROOT, 'jobs')
 
-
+# path for tests
 TESTS_ROOT = path.join(ROOT, 'tests')
+
 
 
 
