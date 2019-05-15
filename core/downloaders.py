@@ -13,34 +13,34 @@ from settings import TEMP_PATH
 
 
 class DownloaderByUrlToFile():
-    def download(self,  instance, target):
+    def download(self, instance, fpath):
         try:
-            url = Box(json.loads(instance.conf)).url
+            url = Box(json.loads(instance.srconf)).url
             result = requests.get(url)
-            with open(target, 'wb') as f:
+            with open(fpath, 'wb') as f:
                 f.write(result.content)
-            return target
+            return fpath
         except Exception as e:
             raise e
 
     @staticmethod
-    def path(conf):
-        name = Box(json.loads(conf)).name
-        ext = Box(json.loads(conf)).storage.type
-        directory = TEMP_PATH
-        os.makedirs(directory, exist_ok=True)
-        return os.path.join(directory, "{}.{}".format(name, ext))
+    def path(srconf):
+        name = Box(json.loads(srconf)).name
+        ext = Box(json.loads(srconf)).storage.type
+        dpath = TEMP_PATH
+        os.makedirs(dpath, exist_ok=True)
+        return os.path.join(dpath, "{}.{}".format(name, ext))
 
 
 class DownloaderByUrlListToFile():
 
-    def download(self, instance, target):
+    def download(self, instance, fpath):
         try:
-            for url, path in zip(self.urls(instance.conf), target):
+            for url, path in zip(self.urls(instance.srconf), fpath):
                 result = requests.get(url)
                 with open(path, 'wb') as f:
                     f.write(result.content)
-            return target
+            return fpath
         except Exception as e:
             raise e
 
@@ -49,9 +49,9 @@ class DownloaderByUrlListToFile():
         url = Box(json.loads(conf)).url
         html = requests.get(Box(json.loads(conf)).url).text
         soup = BeautifulSoup(html, 'lxml')
-        container = Box(json.loads(conf)).container_tag
-        attrs = Box(json.loads(conf)).container_attrs
-        href_regex = Box(json.loads(conf)).url_regexp
+        container = Box(json.loads(conf)).storage.html.container_tag
+        attrs = Box(json.loads(conf)).storage.html.container_attrs
+        href_regex = Box(json.loads(conf)).storage.html.url_regexp
         urls = soup.find(container, attrs=attrs).find_all("a", href=re.compile(href_regex))
         urls = [url.get('href') for url in urls]
         return [u if u.startswith("http") else Utils().base_url(url)+u for u in urls]

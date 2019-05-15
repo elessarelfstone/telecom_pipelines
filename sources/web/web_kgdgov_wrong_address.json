@@ -20,7 +20,11 @@
       "inspection_act_no": "str",
       "inspection_date": "str"
     },
- "skiprows": 3,
+    "area": {
+      "indent": {
+        "top": 3
+      }
+    },
  "sheets" : [0],
  "index": "num",
  "description": "Список налогоплательщиков, отсутствующих по юридическому адресу"

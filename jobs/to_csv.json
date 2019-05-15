@@ -3,5 +3,5 @@
    "location_type": "ftp",
    "entity": "file",
    "data_format": "csv",
-   "delimiter": ""
+   "separator": ";"
 }
