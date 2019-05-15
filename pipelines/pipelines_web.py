@@ -1,66 +1,67 @@
 from pipelines.pipeline_download import DownloadFile
 from pipelines.pipeline_extract import ExtractFile, ExtractFiles
+from pipelines.pipeline_xlsparse import ParseXLS, ParseXLSFromArchive, ParseXLSFromArchives
+from pipelines.pipeline_ftp import CopyFromFileToFtp, CopyFromArchToFtp, CopyFromArchsToFtp
 
 # statgov
 
-class StatGovOKED(DownloadFile):
+
+class StatGovOKED(CopyFromFileToFtp):
     pass
 
 
-class StatGovKPVED(DownloadFile):
+class StatGovKPVED(CopyFromFileToFtp):
     pass
 
 
-class StatGovNVED(DownloadFile):
+class StatGovNVED(CopyFromFileToFtp):
     pass
 
 
-class StatGovKURK(DownloadFile):
+class StatGovKURK(CopyFromFileToFtp):
     pass
 
 
-class StatGovMKEIS(DownloadFile):
-    pass
-
-#
-# class StatGovKATO(DownloadFile):
-#     pass
-
-class StatGovKATO(ExtractFile):
+class StatGovMKEIS(CopyFromFileToFtp):
     pass
 
 
-class StatGovCompanies(ExtractFiles):
+class StatGovKATO(CopyFromArchToFtp):
     pass
+
+
+class StatGovCompanies(CopyFromArchsToFtp):
+    pass
+
 
 # kgdgov
 
 
-class KgdGovPseudoCompany(DownloadFile):
+class KgdGovPseudoCompany(CopyFromFileToFtp):
     pass
 
 
-class KgdGovWrongAddress(DownloadFile):
+class KgdGovWrongAddress(CopyFromFileToFtp):
     pass
 
 
-class KgdGovBankrupt(DownloadFile):
+class KgdGovBankrupt(CopyFromFileToFtp):
     pass
 
 
-class KgdGovInactive(DownloadFile):
+class KgdGovInactive(CopyFromFileToFtp):
     pass
 
 
-class KgdGovInvalidRegistration(DownloadFile):
+class KgdGovInvalidRegistration(CopyFromFileToFtp):
     pass
 
 
-class KgdGovViolationTaxCode(DownloadFile):
+class KgdGovViolationTaxCode(CopyFromFileToFtp):
     pass
 
 
-class KgdGovTaxArrearsULOver150(DownloadFile):
+class KgdGovTaxArrearsULOver150(CopyFromFileToFtp):
     pass
 
 
