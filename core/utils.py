@@ -1,5 +1,7 @@
 import os
 import uuid
+import gzip
+import shutil
 import zipfile
 from pathlib import Path
 from urllib.parse import urlparse
@@ -47,4 +49,12 @@ class Utils():
     @staticmethod
     def uuid(chars_num=23):
         return str(uuid.uuid4())[:chars_num]
+
+    @staticmethod
+    def gzip(file):
+        gzip_file = file + '.gzip'
+        with open(file, 'rb') as f_in:
+            with gzip.open(gzip_file, 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        return gzip_file
 
