@@ -1,4 +1,4 @@
-import downloaders
-import extractors
-import parsers
-import utils
+import core.downloaders
+import core.extractors
+import core.parsers
+import core.utils
