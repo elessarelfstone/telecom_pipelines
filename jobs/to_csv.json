@@ -3,5 +3,6 @@
    "location_type": "ftp",
    "entity": "file",
    "data_format": "csv",
-   "separator": ";"
+   "separator": ";",
+   "gzip": false
 }
