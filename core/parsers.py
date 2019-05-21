@@ -63,7 +63,7 @@ class ParseFromExcelToCSV():
         return os.path.join(dpath, "{}.{}".format(name, data_format))
 
 
-class ParseFromElkAPIToCSV():
+class ParseFromAPIToCSV():
     @staticmethod
     def get_query(local_dict, query_dict):
         local_dict.update({k: v for k, v in query_dict.items() if v is not None})
@@ -81,17 +81,17 @@ class ParseFromElkAPIToCSV():
         url = Box(json.loads(instance.srconf)).url
         conf_query = dict(Box(json.loads(instance.srconf)).data.query)
         local_query = {"from": 1}
-        data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
+        data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
         i = 0
         while len(data):
-            data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
-            print(ParseFromElkAPIToCSV.get_query(local_query, conf_query), len(data))
-            ParseFromElkAPIToCSV.write_data(fpath, data)
+            data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
+            print(ParseFromAPIToCSV.get_query(local_query, conf_query), len(data))
+            ParseFromAPIToCSV.write_data(fpath, data)
             i += 1
             frm = conf_query["size"] * i + 1
             local_query = {"from": frm}
-            data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
-            sleep(5)
+            data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
+            sleep(3)
 
     @staticmethod
     def path(srconf, jobconf, dpath):
@@ -101,6 +101,6 @@ class ParseFromElkAPIToCSV():
 
 
 HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
-HandlersFactory.register("apiparse_to_csv", ParseFromElkAPIToCSV)
+HandlersFactory.register("json_parse_to_csv", ParseFromAPIToCSV)
 
 

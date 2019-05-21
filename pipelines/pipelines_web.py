@@ -1,8 +1,8 @@
 from pipelines.pipeline_download import DownloadFile
 from pipelines.pipeline_extract import ExtractFile, ExtractFiles
 from pipelines.pipeline_xlsparse import ParseXLS, ParseXLSFromArchive, ParseXLSFromArchives
-from pipelines.pipeline_ftp import CopyFromFileToFtp, CopyFromArchToFtp, CopyFromArchsToFtp
-from pipelines.pipeline_elkapiparsers import ParseElkApiFromArchives
+from pipelines.pipeline_ftp import CopyFromFileToFtp, CopyFromArchToFtp, CopyFromArchsToFtp, CopyFromParsingToFtp
+from pipelines.pipeline_parsers import ParseApiToCsv
 
 # statgov
 
@@ -66,8 +66,7 @@ class KgdGovTaxArrearsULOver150(CopyFromFileToFtp):
     pass
 
 
-
 #datagov
 
-class DataGovAddresses(ParseElkApiFromArchives):
+class DataGovAddresses(CopyFromParsingToFtp):
     pass
