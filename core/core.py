@@ -102,12 +102,12 @@ class XLSParser(Source):
         return name
 
 
-class APIParser(Source):
+class Parser(Source):
     def __init__(self, srconf, jobconf, dpath, handler=None):
         self.action = None
         self.jobconf = jobconf
         self.dpath = dpath
-        super(APIParser, self).__init__(srconf)
+        super(Parser, self).__init__(srconf)
         if handler:
             self.action = handler()
 
@@ -118,12 +118,12 @@ class APIParser(Source):
 
     @staticmethod
     def path(srconf, jobconf, dpath):
-        action = HandlersFactory.get_handler(APIParser.handler_name(jobconf))
+        action = HandlersFactory.get_handler(Parser.handler_name(srconf, jobconf))
         return action().path(srconf, jobconf, dpath)
 
     @staticmethod
-    def handler_name(jobconf):
-        name = "apiparse_to_"+Box(json.loads(jobconf)).data_format
+    def handler_name(srconf, jobconf):
+        name = Box(json.loads(srconf)).storage.type+"_parse_to_"+Box(json.loads(jobconf)).data_format
         return name
 
 

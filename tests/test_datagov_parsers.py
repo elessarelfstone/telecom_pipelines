@@ -3,7 +3,7 @@ import unittest
 
 
 from settings import WEB_SOURCES_CONFIG_DIR, JOBS_CONFIG_DIR, WEB_DATA_PATH, TEMP_PATH
-from core.core import HandlersFactory, APIParser
+from core.core import HandlersFactory, Parser
 from core.utils import Utils
 
 
@@ -17,8 +17,8 @@ class TestDataGovParseAPI(unittest.TestCase):
         jobconf_path = os.path.join(JOBS_CONFIG_DIR, 'to_csv.json')
         src_json = Utils.read_file(srconf_path)
         job_json = Utils.read_file(jobconf_path)
-        parse_handler = HandlersFactory.get_handler(APIParser.handler_name(job_json))
-        service = APIParser(src_json, job_json, self.data_path, parse_handler)
+        parse_handler = HandlersFactory.get_handler(Parser.handler_name(src_json, job_json))
+        service = Parser(src_json, job_json, self.data_path, parse_handler)
         csvfile = service.path(src_json, job_json, self.data_path)
         service.parse()
         self.assertTrue(os.path.exists(csvfile))
