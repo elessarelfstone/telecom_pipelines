@@ -25,6 +25,9 @@ class WebPipelinesRunner(luigi.WrapperTask):
         yield KgdGovViolationTaxCode(sourcefile="web_kgdgov_violation_tax_code.json", jobfile="to_csv.json")
         yield KgdGovTaxArrearsULOver150(sourcefile="web_kgdgov_tax_arrears_150.json", jobfile="to_csv.json")
 
+        #data.gov.kz
+        yield DataGovAddresses(sourcefile="web_datagov_addresses.json", jobfile="to_csv.json")
+
 
 if __name__ == '__main__':
     luigi.run()

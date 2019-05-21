@@ -1,11 +1,15 @@
+import csv
 import os
 import json
+from time import sleep
 
 from box import Box
+import requests
 
 import pandas as pd
 
 from core.core import HandlersFactory
+from core.utils import Utils
 
 
 class ParseFromExcelToCSV():
@@ -59,8 +63,44 @@ class ParseFromExcelToCSV():
         return os.path.join(dpath, "{}.{}".format(name, data_format))
 
 
-HandlersFactory.register("parse_to_csv", ParseFromExcelToCSV)
+class ParseFromElkAPIToCSV():
+    @staticmethod
+    def get_query(local_dict, query_dict):
+        local_dict.update({k: v for k, v in query_dict.items() if v is not None})
+        return str(local_dict).replace("\'", '\"')
 
-# TODO move description in source config file upper
+    @staticmethod
+    def write_data(fpath, data, delimiter=";"):
+        with open(fpath, "a", encoding="utf8") as f:
+            csv_writer = csv.writer(f, delimiter=delimiter)
+            for row in data:
+                csv_writer.writerow(row.values())
+
+    @staticmethod
+    def parse(instance, fpath):
+        url = Box(json.loads(instance.srconf)).url
+        conf_query = dict(Box(json.loads(instance.srconf)).data.query)
+        local_query = {"from": 1}
+        data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
+        i = 0
+        while len(data):
+            data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
+            print(ParseFromElkAPIToCSV.get_query(local_query, conf_query), len(data))
+            ParseFromElkAPIToCSV.write_data(fpath, data)
+            i += 1
+            frm = conf_query["size"] * i + 1
+            local_query = {"from": frm}
+            data = Utils.get_json_data(url.format(ParseFromElkAPIToCSV.get_query(local_query, conf_query)))
+            sleep(5)
+
+    @staticmethod
+    def path(srconf, jobconf, dpath):
+        name = Box(json.loads(srconf)).name
+        data_format = Box(json.loads(jobconf)).data_format
+        return os.path.join(dpath, "{}.{}".format(name, data_format))
+
+
+HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
+HandlersFactory.register("apiparse_to_csv", ParseFromElkAPIToCSV)
 
 

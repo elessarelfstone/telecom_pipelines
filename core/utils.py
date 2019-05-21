@@ -1,3 +1,4 @@
+import json
 import os
 import uuid
 import gzip
@@ -7,6 +8,7 @@ from pathlib import Path
 from urllib.parse import urlparse
 
 from rarfile import RarFile
+import requests
 
 
 class Utils():
@@ -58,3 +60,8 @@ class Utils():
                 shutil.copyfileobj(f_in, f_out)
         return gzip_file
 
+    @staticmethod
+    def get_json_data(query):
+        raw = requests.get(query)
+        json_data = json.loads(raw.text)
+        return json_data
