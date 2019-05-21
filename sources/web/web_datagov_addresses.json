@@ -1,0 +1,29 @@
+{
+ "url":"http://data.egov.kz/api/v2/s_pb/data?source={}",
+ "name": "datagov_addresses",
+ "storage": {
+   "store": "web",
+   "location_type": "api",
+   "entity": "raw",
+   "type" : "json"
+ },
+  "data": {
+    "header": {
+      "id": "int",
+      "d_room_type_id": "int",
+      "full_path_rus": "str",
+      "full_path_kaz": "str",
+      "actual" : "int",
+      "s_building_id": "int",
+      "number" : "int",
+      "rca" : "int",
+      "modified" : "date"
+    },
+    "query": {
+      "size": 10000,
+      "from": null
+    },
+    "description": "Список налогоплательщиков, признанных банкротами"
+  }
+}
+

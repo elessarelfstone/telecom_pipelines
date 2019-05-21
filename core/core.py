@@ -98,5 +98,33 @@ class XLSParser(Source):
 
     @staticmethod
     def handler_name(jobconf):
-        name = "parse_to_" + Box(json.loads(jobconf)).data_format
+        name = "xlsparse_to_" + Box(json.loads(jobconf)).data_format
         return name
+
+
+class APIParser(Source):
+    def __init__(self, srconf, jobconf, dpath, handler=None):
+        self.action = None
+        self.jobconf = jobconf
+        self.dpath = dpath
+        super(APIParser, self).__init__(srconf)
+        if handler:
+            self.action = handler()
+
+    def parse(self):
+        if self.action:
+            fpath = self.path(self.srconf, self.jobconf, self.dpath)
+            return self.action.parse(self, fpath)
+
+    @staticmethod
+    def path(srconf, jobconf, dpath):
+        action = HandlersFactory.get_handler(APIParser.handler_name(jobconf))
+        return action().path(srconf, jobconf, dpath)
+
+    @staticmethod
+    def handler_name(jobconf):
+        name = "apiparse_to_"+Box(json.loads(jobconf)).data_format
+        return name
+
+
+
