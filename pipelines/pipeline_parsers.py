@@ -24,6 +24,6 @@ class ParseApiToCsv(luigi.Task):
         src_conf = Utils.read_file(src_file)
         job_file = os.path.join(JOBS_CONFIG_DIR, str(self.jobfile))
         job_conf = Utils.read_file(job_file)
-        handler = HandlersFactory.get_handler(Parser.handler_name(job_conf))
+        handler = HandlersFactory.get_handler(Parser.handler_name(src_conf, job_conf))
         service = Parser(src_conf, job_conf, WEB_DATA_PATH, handler)
         service.parse()
