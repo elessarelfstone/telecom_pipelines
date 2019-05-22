@@ -4,5 +4,5 @@
    "entity": "file",
    "data_format": "csv",
    "separator": ";",
-   "gzip": false
+   "gzip": true
 }
