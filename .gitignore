@@ -120,3 +120,7 @@ venv.bak/
 
 #mingw
 ssh.EXE.stackdump
+
+# configs
+.conf
+.cfg
