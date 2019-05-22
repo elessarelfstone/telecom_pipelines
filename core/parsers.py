@@ -85,7 +85,6 @@ class ParseFromAPIToCSV():
         i = 0
         while len(data):
             data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
-            print(ParseFromAPIToCSV.get_query(local_query, conf_query), len(data))
             ParseFromAPIToCSV.write_data(fpath, data)
             i += 1
             frm = conf_query["size"] * i + 1
