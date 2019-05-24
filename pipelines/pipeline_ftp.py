@@ -65,7 +65,7 @@ class CopyFromArchToFtp(luigi.ExternalTask):
         if Box(json.loads(job_conf)).gzip:
             Utils().gzip(self.input().path)
             path += '.gzip'
-        self.output().put(self.input().path, atomic=False)
+        self.output().put(path, atomic=False)
 
 
 class CopyFromArchsToFtp(luigi.ExternalTask):
@@ -93,7 +93,7 @@ class CopyFromArchsToFtp(luigi.ExternalTask):
         if Box(json.loads(job_conf)).gzip:
             Utils().gzip(self.input().path)
             path += '.gzip'
-        self.output().put(self.input().path, atomic=False)
+        self.output().put(path, atomic=False)
 
 
 class CopyFromParsingToFtp(luigi.ExternalTask):
