@@ -1,0 +1,20 @@
+{
+ "url":"http://kgd.gov.kz/ru/reference/mrp",
+ "name": "kgdgov_mrp",
+ "storage": {
+   "store": "web",
+   "location_type": "html",
+   "entity": "javascript",
+   "type" : "json",
+   "json_data_key": "ref"
+ },
+  "data": {
+    "header": {
+      "id": "int",
+      "mrp": "float",
+      "date": "date"
+    },
+    "description": "Справочник МРП"
+  }
+}
+
