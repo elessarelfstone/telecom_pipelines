@@ -7,7 +7,7 @@ from luigi.contrib.ftp import RemoteTarget, RemoteFileSystem
 from box import Box
 
 from pipelines.pipeline_xlsparse import ParseXLS, ParseXLSFromArchive, ParseXLSFromArchives
-from pipelines.pipeline_parsers import ParseApiToCsv
+from pipelines.pipeline_parsers import ParseFromWebToCsv
 from settings import JOBS_CONFIG_DIR, FTP_HOST, FTP_REMOTE_PATH, FTP_USER, FTP_PASS
 from core.utils import Utils
 
@@ -102,7 +102,7 @@ class CopyFromParsingToFtp(luigi.ExternalTask):
     jobfile = luigi.Parameter()
 
     def requires(self):
-        return ParseApiToCsv(sourcefile=self.sourcefile, jobfile=self.jobfile)
+        return ParseFromWebToCsv(sourcefile=self.sourcefile, jobfile=self.jobfile)
 
     def output(self):
         job_file = os.path.join(JOBS_CONFIG_DIR, str(self.jobfile))

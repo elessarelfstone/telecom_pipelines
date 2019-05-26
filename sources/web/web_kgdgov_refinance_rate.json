@@ -1,0 +1,20 @@
+{
+ "url":"http://kgd.gov.kz/ru/reference/refer",
+ "name": "kgdgov_refinance_rate",
+ "storage": {
+   "store": "web",
+   "location_type": "html",
+   "entity": "javascript",
+   "type" : "json",
+   "json_data_key": "ref"
+ },
+  "data": {
+    "header": {
+      "id": "int",
+      "date": "date",
+      "rate": "float"
+    },
+    "description": "Справочник рефинансирования"
+  }
+}
+

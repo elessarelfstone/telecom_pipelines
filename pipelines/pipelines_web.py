@@ -2,7 +2,7 @@ from pipelines.pipeline_download import DownloadFile
 from pipelines.pipeline_extract import ExtractFile, ExtractFiles
 from pipelines.pipeline_xlsparse import ParseXLS, ParseXLSFromArchive, ParseXLSFromArchives
 from pipelines.pipeline_ftp import CopyFromFileToFtp, CopyFromArchToFtp, CopyFromArchsToFtp, CopyFromParsingToFtp
-from pipelines.pipeline_parsers import ParseApiToCsv
+from pipelines.pipeline_parsers import ParseFromWebToCsv
 
 # statgov
 
@@ -63,6 +63,10 @@ class KgdGovViolationTaxCode(CopyFromFileToFtp):
 
 
 class KgdGovTaxArrearsULOver150(CopyFromFileToFtp):
+    pass
+
+
+class KgdGovRefinanceRate(CopyFromFileToFtp):
     pass
 
 

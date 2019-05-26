@@ -123,8 +123,14 @@ class Parser(Source):
 
     @staticmethod
     def handler_name(srconf, jobconf):
-        name = Box(json.loads(srconf)).storage.type+"_parse_to_"+Box(json.loads(jobconf)).data_format
+        web = Box(json.loads(srconf)).storage.store
+        location_type = Box(json.loads(srconf)).storage.location_type
+        entity = Box(json.loads(srconf)).storage.entity
+        type = Box(json.loads(srconf)).storage.type
+        data_format = Box(json.loads(jobconf)).data_format
+        name = f"{web}_{location_type}_{entity}_{type}_parse_to_{data_format}"
         return name
+
 
 
 

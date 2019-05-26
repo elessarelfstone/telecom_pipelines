@@ -1,10 +1,14 @@
 import csv
-import os
+import codecs
 import json
+import os
+import re
+
 from time import sleep
 
 from box import Box
 import requests
+from bs4 import BeautifulSoup
 
 import pandas as pd
 
@@ -99,7 +103,43 @@ class ParseFromAPIToCSV():
         return os.path.join(dpath, "{}.{}".format(name, data_format))
 
 
-HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
-HandlersFactory.register("json_parse_to_csv", ParseFromAPIToCSV)
+class ParseJavaScriptJsonToCSV():
+    @staticmethod
+    def get_data(instance):
+        url = Box(json.loads(instance.srconf)).url
+        raw = codecs.encode(requests.get(url).text, encoding="utf8")
+        soup = BeautifulSoup(raw, 'lxml')
+        scripts = soup.find_all('script')
+        json_key = Box(json.loads(instance.srconf)).storage.json_data_key
+        pattern = r'("ref"\s*):(\s*\[\S+\])'
+        for script in scripts:
+            res = re.search(pattern, script.text)
+            if res:
+                json_raw = res.group(2)
+                break
+        return json.loads(json_raw)
 
+    @staticmethod
+    def write_data(fpath, data, delimiter=";"):
+        with open(fpath, "a", encoding="utf8") as f:
+            csv_writer = csv.writer(f, delimiter=delimiter)
+            for row in data:
+                csv_writer.writerow(row.values())
+
+    @staticmethod
+    def parse(instance, fpath):
+        data = ParseJavaScriptJsonToCSV.get_data(instance)
+        ParseJavaScriptJsonToCSV.write_data(fpath, data)
+
+    @staticmethod
+    def path(srconf, jobconf, dpath):
+        name = Box(json.loads(srconf)).name
+        data_format = Box(json.loads(jobconf)).data_format
+        return os.path.join(dpath, "{}.{}".format(name, data_format))
+
+
+
+HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
+HandlersFactory.register("web_api_raw_json_parse_to_csv", ParseFromAPIToCSV)
+HandlersFactory.register("web_html_javascript_json_parse_to_csv", ParseJavaScriptJsonToCSV)
 
