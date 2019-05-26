@@ -7,7 +7,7 @@ from core.utils import Utils
 from settings import WEB_SOURCES_CONFIG_DIR, JOBS_CONFIG_DIR, WEB_DATA_PATH
 
 
-class ParseApiToCsv(luigi.Task):
+class ParseFromWebToCsv(luigi.Task):
 
     sourcefile = luigi.Parameter()
     jobfile = luigi.Parameter()
