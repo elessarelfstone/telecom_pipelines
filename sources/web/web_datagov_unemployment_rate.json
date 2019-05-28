@@ -1,0 +1,25 @@
+{
+ "url":"http://data.egov.kz/api/v2/monokalalardagy_zhumyssyzdyk_d/v10?source={}",
+ "name": "datagov_unemployment_rate_monocity",
+ "storage": {
+   "store": "web",
+   "location_type": "api",
+   "entity": "raw",
+   "type" : "json"
+ },
+  "data": {
+    "header": {
+      "monocity_kz": "str",
+      "monocity_ru": "str",
+      "measure_kz": "str",
+      "measure_ru": "str",
+      "rate" : "float",
+      "year": "int"
+    },
+    "query": {
+      "size": 10000,
+      "from": null
+    },
+    "description": "Уровень безработицы в моногородах"
+  }
+}

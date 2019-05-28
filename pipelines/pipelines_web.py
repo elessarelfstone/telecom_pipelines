@@ -70,7 +70,19 @@ class KgdGovRefinanceRate(CopyFromFileToFtp):
     pass
 
 
+class KgdGovMrp(CopyFromParsingToFtp):
+    pass
+
+
+class KgdGovMzp(CopyFromParsingToFtp):
+    pass
+
+
 #datagov
 
 class DataGovAddresses(CopyFromParsingToFtp):
+    pass
+
+
+class DataGovUnemploymentRate(CopyFromParsingToFtp):
     pass
