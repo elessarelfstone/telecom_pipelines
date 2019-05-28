@@ -86,3 +86,7 @@ class DataGovAddresses(CopyFromParsingToFtp):
 
 class DataGovUnemploymentRate(CopyFromParsingToFtp):
     pass
+
+
+class DataGovUnemploymentPercentRate(CopyFromParsingToFtp):
+    pass
