@@ -82,3 +82,7 @@ class KgdGovMzp(CopyFromParsingToFtp):
 
 class DataGovAddresses(CopyFromParsingToFtp):
     pass
+
+
+class DataGovUnemploymentRate(CopyFromParsingToFtp):
+    pass
