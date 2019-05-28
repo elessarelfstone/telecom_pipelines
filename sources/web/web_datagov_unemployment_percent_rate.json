@@ -1,0 +1,25 @@
+{
+ "url":"http://data.egov.kz/api/v2/zhumyssyzdyk_dengeii1/v11?source={}",
+ "name": "datagov_unemployment_percent_rate",
+ "storage": {
+   "store": "web",
+   "location_type": "api",
+   "entity": "raw",
+   "type" : "json"
+ },
+  "data": {
+    "header": {
+      "subject_kz": "str",
+      "subject_ru": "str",
+      "measure_kz": "str",
+      "measure_ru": "str",
+      "rate" : "float",
+      "year": "int"
+    },
+    "query": {
+      "size": 10000,
+      "from": null
+    },
+    "description": "Доля численности безработных в численности рабочей силы, измеренная в процентах."
+  }
+}
