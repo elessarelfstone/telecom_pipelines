@@ -1,0 +1,39 @@
+{
+ "url":"https://gr5.gosreestr.kz/p",
+ "name": "gosreestr",
+ "storage": {
+   "store": "web",
+   "location_type": "html",
+   "entity": "table",
+   "type" : "text",
+   "method": "post"
+ },
+  "data": {
+    "header": {
+      "id": "str",
+      "bin": "str",
+      "rnn": "str",
+      "okpo": "str",
+      "name_ru" : "str",
+      "name_kz" : "str",
+      "opf": "str",
+      "kfc_level4": "str",
+      "kfc": "str",
+      "finance_src": "str",
+      "N_reg": "str",
+      "reg_dt": "date",
+      "reg_dt_first": "date",
+      "status": "str",
+      "blocked": "str",
+      "state_department" : "str",
+      "owner": "str",
+      "industry_level1":"str",
+      "industry_level4": "str"
+    },
+    "query": {
+      "size": 10000,
+      "from": null
+    },
+    "description": "Доля численности безработных в численности рабочей силы, измеренная в процентах."
+  }
+}
