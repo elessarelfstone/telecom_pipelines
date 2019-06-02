@@ -13,6 +13,7 @@ from bs4 import BeautifulSoup
 import pandas as pd
 
 from core.core import HandlersFactory
+from core.gosreestr_parser import ParseGosRegisterToCSV
 from core.utils import Utils
 
 
@@ -142,4 +143,5 @@ class ParseJavaScriptJsonToCSV():
 HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
 HandlersFactory.register("web_api_raw_json_parse_to_csv", ParseFromAPIToCSV)
 HandlersFactory.register("web_html_javascript_json_parse_to_csv", ParseJavaScriptJsonToCSV)
+HandlersFactory.register("web_html_table_text_parse_to_csv", ParseGosRegisterToCSV)
 

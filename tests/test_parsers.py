@@ -247,3 +247,18 @@ class TestKgdGovParse(unittest.TestCase):
         csvfile = service.path(src_json, job_json, self.data_path)
         service.parse()
         self.assertTrue(os.path.exists(csvfile))
+
+class TestGosReestr(unittest.TestCase):
+    def setUp(self):
+        self.data_path = WEB_DATA_PATH
+
+    def test_gos_reestr(self):
+        srconf_path = os.path.join(WEB_SOURCES_CONFIG_DIR, 'web_gosreestr.json')
+        jobconf_path = os.path.join(JOBS_CONFIG_DIR, 'to_csv.json')
+        src_json = Utils.read_file(srconf_path)
+        job_json = Utils.read_file(jobconf_path)
+        parse_handler = HandlersFactory.get_handler(Parser.handler_name(src_json, job_json))
+        service = Parser(src_json, job_json, self.data_path, parse_handler)
+        csvfile = service.path(src_json, job_json, self.data_path)
+        service.parse()
+        self.assertTrue(os.path.exists(csvfile))
