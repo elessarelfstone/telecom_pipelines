@@ -25,14 +25,15 @@ class ParseFromExcelToCSV():
         xls_sheets = xls.sheet_names
         sheets = Box(json.loads(srconf)).data.sheets
         for sh in sheets:
-            df = pd.read_excel(xlspath,
-                               sheet_name=xls_sheets[sh],
-                               skiprows=Box(json.loads(srconf)).data.area.indent.top,
-                               index_col=None,
-                               dtype=str,
-                               header=None)
+            if sh <= len(xls_sheets) - 1:
+                df = pd.read_excel(xlspath,
+                                   sheet_name=xls_sheets[sh],
+                                   skiprows=Box(json.loads(srconf)).data.area.indent.top,
+                                   index_col=None,
+                                   dtype=str,
+                                   header=None)
 
-            data = data.append(df, ignore_index=True)
+                data = data.append(df, ignore_index=True)
         data = data.replace(['nan', 'None'], '', regex=True)
         return data
 
@@ -137,7 +138,6 @@ class ParseJavaScriptJsonToCSV():
         name = Box(json.loads(srconf)).name
         data_format = Box(json.loads(jobconf)).data_format
         return os.path.join(dpath, "{}.{}".format(name, data_format))
-
 
 
 HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)

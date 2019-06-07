@@ -19,6 +19,11 @@ class Utils():
         return result
 
     @staticmethod
+    def write_file(file, data):
+        with open(file, "w", encoding="utf8") as f:
+            f.write(data)
+
+    @staticmethod
     def base_url(url):
         parsed_uri = urlparse(url)
         result = '{uri.scheme}://{uri.netloc}/'.format(uri=parsed_uri)
@@ -62,6 +67,10 @@ class Utils():
 
     @staticmethod
     def get_json_data(query):
-        raw = requests.get(query)
-        json_data = json.loads(raw.text)
-        return json_data
+        try:
+            raw = requests.get(query)
+            json_data = json.loads(raw.text)
+            return json_data
+        except Exception as e:
+            Utils.write_file('test.txt', raw.text)
+

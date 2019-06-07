@@ -66,7 +66,7 @@ class KgdGovTaxArrearsULOver150(CopyFromFileToFtp):
     pass
 
 
-class KgdGovRefinanceRate(CopyFromFileToFtp):
+class KgdGovRefinanceRate(CopyFromParsingToFtp):
     pass
 
 

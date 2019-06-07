@@ -66,6 +66,38 @@ class DownloaderByUrlListToFile():
         return [os.path.join(directory, "{}_{}.{}".format(name, i, ext)) for i, url in enumerate(urls)]
 
 
+class DownloaderByUrlStatGovCompanies():
+
+    def download(self, instance, fpath):
+        try:
+            for url, path in zip(self.urls(instance.srconf), fpath):
+                result = requests.get(url)
+                with open(path, 'wb') as f:
+                    f.write(result.content)
+            return fpath
+        except Exception as e:
+            raise e
+
+    @staticmethod
+    def urls(conf):
+        url = Box(json.loads(conf)).url
+        base_url = Box(json.loads(conf)).base_url
+        js = requests.get(url).text
+        regex = Box(json.loads(conf)).storage.html.url_regexp
+        res = re.findall(regex, js)
+        urls = ["{}{}".format(base_url, res) for res in res]
+        return urls
+
+    @staticmethod
+    def path(conf):
+        name = Box(json.loads(conf)).name
+        ext = Box(json.loads(conf)).storage.type
+        urls = DownloaderByUrlStatGovCompanies().urls(conf)
+        directory = TEMP_PATH
+        os.makedirs(directory, exist_ok=True)
+        return [os.path.join(directory, "{}_{}.{}".format(name, i, ext)) for i, url in enumerate(urls)]
+
+
 HandlersFactory.register("download_url", DownloaderByUrlToFile)
-HandlersFactory.register("download_urllist", DownloaderByUrlListToFile)
+HandlersFactory.register("download_urllist_ajax", DownloaderByUrlStatGovCompanies)
 

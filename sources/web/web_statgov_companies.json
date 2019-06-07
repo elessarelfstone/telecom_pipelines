@@ -1,10 +1,10 @@
 {
- "url":"http://stat.gov.kz/faces/publicationsPage/publicationsOper/homeNumbersBusinessRegisters/homeNumbersBusinessRegistersReestr",
- "base_url": "http://stat.gov.kz",
+ "url":"http://stat.gov.kz/api/content/?objId=WC16200009069",
+ "base_url": "http://stat.gov.kz/api/getFile/?docId=",
  "name": "statgov_companies",
   "storage": {
    "store": "web",
-   "location_type": "urllist",
+   "location_type": "urllist_ajax",
    "entity": "file",
    "type" : "zip",
    "data_format": "xls",
@@ -12,8 +12,8 @@
    "data_archives_num": 17,
    "html": {
      "container_tag" : "div",
-     "container_attrs" : {"id" :  "pt1:r1:0:j_id__ctru0pc3:pgl4"},
-     "url_regexp" : "ESTAT"
+     "container_attrs" : {"id" : "main"},
+     "url_regexp" : "ESTAT.\\d*"
    }
  },
  "data": {
@@ -40,7 +40,7 @@
         "top": 4
       }
  },
- "sheets" : [0],
+ "sheets" : [0,1,2],
  "index": "full_name_ru",
  "description": "Список компаний"
  }
