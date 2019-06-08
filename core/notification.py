@@ -1,3 +1,4 @@
+import os
 import time
 import logging
 import traceback
@@ -6,6 +7,7 @@ from luigi import Task
 from luigi.event import Event
 import telepot
 
+
 logger = logging.getLogger(__name__)
 
 
@@ -13,6 +15,8 @@ class TelegramBot(object):
 
     def __init__(self, bot_token):
         self.bot = telepot.Bot(bot_token)
+        if os.getenv("ENV") == 'prod':
+            telepot.api.set_proxy(os.getenv("HTTP_PROXY"), (os.getenv("HTTP_PROXY_USER"), os.getenv("HTTP_PROXY_PASS")))
 
     def send_message(self, message, chat_id):
         self.bot.sendMessage(chat_id, message, parse_mode='Markdown')
