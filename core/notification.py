@@ -59,8 +59,8 @@ class LuigiTelegramNotification(object):
             payload += [self.format_success(task) for task in self._succeeded_tasks]
 
         if payload:
-            bucket = []
             for chat_id in self._chat_ids:
+                bucket = []
                 for i, msg in enumerate(payload):
                     if i == 5:
                         self.bot.send_message(''.join(bucket), chat_id)
