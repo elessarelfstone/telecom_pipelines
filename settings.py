@@ -28,5 +28,6 @@ JOBS_CONFIG_DIR = path.join(ROOT, 'jobs')
 # path for tests
 TESTS_ROOT = path.join(ROOT, 'tests')
 
-
+# people are gonna be notified
+NOTIFIED_TELEGRAMS = os.getenv('NOTIFIED_TELEGRAMS')
 
