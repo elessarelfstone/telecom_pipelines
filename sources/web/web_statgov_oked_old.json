@@ -1,12 +1,11 @@
 {
- "url":"http://stat.gov.kz/api/getFile/?docId=ESTAT310324",
- "name": "statgov_oked",
+ "url":"http://old.stat.gov.kz/getImg?id=ESTAT116572",
+ "name": "statgov_oked_old",
  "storage": {
    "store": "web",
    "location_type": "url",
    "entity": "file",
-   "type" : "xlsx",
-   "custom_id":"oked"
+   "type" : "xlsx"
  },
   "data": {
     "header": {
@@ -16,11 +15,11 @@
     },
   "area": {
     "indent": {
-      "top": 3
+      "top": 4
     }
   },
  "sheets" : [0],
  "index": "code",
- "description": "Общий классификатор видов экономической деятельности"
+ "description": "Общий классификатор видов экономической деятельности(старый)"
 }
 }

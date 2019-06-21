@@ -20,7 +20,7 @@ class TestStatGovDownload(unittest.TestCase):
                 os.remove(f)
 
     def test_oked_download_by_url(self):
-        src_conf_path = os.path.join(WEB_SOURCES_CONFIG_DIR, 'web_statgov_oked.json')
+        src_conf_path = os.path.join(WEB_SOURCES_CONFIG_DIR, 'web_statgov_oked_old.json')
         json_raw = Utils.read_file(src_conf_path)
         handler = HandlersFactory.get_handler(Downloader.handler_name(json_raw))
         service = Downloader(json_raw, handler)

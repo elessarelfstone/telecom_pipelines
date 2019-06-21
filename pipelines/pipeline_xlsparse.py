@@ -29,7 +29,7 @@ class ParseXLS(luigi.Task):
         src_conf = Utils.read_file(src_file)
         job_file = os.path.join(JOBS_CONFIG_DIR, str(self.jobfile))
         job_conf = Utils.read_file(job_file)
-        handler = HandlersFactory.get_handler(XLSParser.handler_name(job_conf))
+        handler = HandlersFactory.get_handler(XLSParser.handler_name(src_conf, job_conf))
         service = XLSParser(src_conf, job_conf, self.input().path, WEB_DATA_PATH, handler)
         service.parse()
 
@@ -54,7 +54,7 @@ class ParseXLSFromArchive(luigi.Task):
         src_conf = Utils.read_file(src_file)
         job_file = os.path.join(JOBS_CONFIG_DIR, str(self.jobfile))
         job_conf = Utils.read_file(job_file)
-        handler = HandlersFactory.get_handler(XLSParser.handler_name(job_conf))
+        handler = HandlersFactory.get_handler(XLSParser.handler_name(src_conf, job_conf))
         service = XLSParser(src_conf, job_conf, [f.path for f in self.input()], WEB_DATA_PATH, handler)
         service.parse()
 
@@ -79,6 +79,6 @@ class ParseXLSFromArchives(luigi.Task):
         src_conf = Utils.read_file(src_file)
         job_file = os.path.join(JOBS_CONFIG_DIR, str(self.jobfile))
         job_conf = Utils.read_file(job_file)
-        handler = HandlersFactory.get_handler(XLSParser.handler_name(job_conf))
+        handler = HandlersFactory.get_handler(XLSParser.handler_name(src_conf, job_conf))
         service = XLSParser(src_conf, job_conf, [f.path for f in self.input()], WEB_DATA_PATH, handler)
         service.parse()

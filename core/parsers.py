@@ -11,6 +11,7 @@ import requests
 from bs4 import BeautifulSoup
 
 import pandas as pd
+import numpy as np
 
 from core.core import HandlersFactory
 from core.gosreestr_parser import ParseGosRegisterToCSV
@@ -68,6 +69,96 @@ class ParseFromExcelToCSV():
         data_format = Box(json.loads(jobconf)).data_format
         return os.path.join(dpath, "{}.{}".format(name, data_format))
 
+
+class ParseOkedToCsv():
+
+    @staticmethod
+    def xls_retrieve(xlspath, srconf):
+        data = pd.DataFrame()
+        xls = pd.ExcelFile(xlspath)
+        xls_sheets = xls.sheet_names
+        sheets = Box(json.loads(srconf)).data.sheets
+        for sh in sheets:
+            if sh <= len(xls_sheets) - 1:
+                df = pd.read_excel(xlspath,
+                                   sheet_name=xls_sheets[sh],
+                                   skiprows=Box(json.loads(srconf)).data.area.indent.top,
+                                   index_col=None,
+                                   dtype=str,
+                                   header=None)
+
+                data = data.append(df, ignore_index=True)
+        data = data.replace(['nan', 'None'], '', regex=True)
+        return data
+
+    @staticmethod
+    def get_codes(df):
+        codes = df.iloc[:, 0].tolist()
+        result = []
+        current_root = codes[0]
+        for code in codes:
+            if ('.' in str(code)) or (str(code).replace('.', '').isdigit()):
+                result.append('{}.{}'.format(current_root, code))
+            else:
+                result.append(code)
+                current_root = code
+        return result
+
+    @staticmethod
+    def get_levels(codes):
+        level0, level1, level2, level3 = [None] * len(codes), [None] * len(codes), [None] * len(codes), [None] * len(
+            codes)
+
+        for i, code in enumerate(codes):
+            buff = str(code).split('.')
+            if len(buff) == 1:
+                level0[i], level1[i], level2[i], level3[i] = '', '', '', ''
+            elif len(buff) == 2:
+                level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), '', '', ''
+            elif len(buff) == 3:
+                if len(buff[2]) == 1:
+                    level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '', ''
+                else:
+                    level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '{}{}'.format(buff[1].replace('.', ''),
+                                                                                                  buff[2][1]).replace('.', ''), ''
+            elif len(buff) == 4:
+                level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '{}{}'.format(buff[1].replace('.', ''), buff[2][1].replace('.', '')), '{}{}'.format(buff[1].replace('.', ''), buff[2].replace('.', ''))
+        return level0, level1, level2, level3
+
+    @staticmethod
+    def save(df, srconf, jobconf, fpath):
+        codes = ParseOkedToCsv().get_codes(df)
+        header = dict(Box(json.loads(srconf)).data.header).keys()
+        df = df.iloc[:, 0:len(header)]
+        sep = Box(json.loads(jobconf)).separator
+        lv0, lv1, lv2, lv3 = ParseOkedToCsv.get_levels(codes)
+        # se_lv0 = pd.Series(lv0)
+        # se_lv1 = pd.Series(lv1)
+        # se_lv2 = pd.Series(lv2)
+        # se_lv3 = pd.Series(lv3)
+        # df['level0'] = se_lv0.values
+        # df['level1'] = se_lv1.values
+        # df['level2'] = se_lv2.values
+        # df['level3'] = se_lv3.values
+        df['level1'] = np.array(lv0)
+        df['level2'] = np.array(lv1)
+        df['level3'] = np.array(lv2)
+        df['level4'] = np.array(lv3)
+        df.to_csv(fpath, sep=sep, encoding='utf-8', header=None, index=None)
+        return df
+
+    @staticmethod
+    def parse(instance, fpath):
+        df = ParseOkedToCsv.xls_retrieve(instance.xlspath, instance.srconf)
+        pd.options.mode.chained_assignment = None
+        data = ParseOkedToCsv.save(df, instance.srconf, instance.jobconf, fpath)
+        return data.shape[0]
+
+    @staticmethod
+    def path(srconf, jobconf, dpath):
+        name = Box(json.loads(srconf)).name
+        data_format = Box(json.loads(jobconf)).data_format
+        return os.path.join(dpath, "{}.{}".format(name, data_format))
 
 class ParseFromAPIToCSV():
     @staticmethod
@@ -141,6 +232,7 @@ class ParseJavaScriptJsonToCSV():
 
 
 HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)
+HandlersFactory.register("xlsparse_oked_to_csv", ParseOkedToCsv)
 HandlersFactory.register("web_api_raw_json_parse_to_csv", ParseFromAPIToCSV)
 HandlersFactory.register("web_html_javascript_json_parse_to_csv", ParseJavaScriptJsonToCSV)
 HandlersFactory.register("web_html_table_text_parse_to_csv", ParseGosRegisterToCSV)

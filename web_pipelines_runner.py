@@ -24,6 +24,7 @@ class MyNotification(LuigiTelegramNotification):
 class WebPipelinesRunner(luigi.WrapperTask):
     def requires(self):
         # stat.gov.kz
+        yield StatGovOKED(sourcefile="web_statgov_oked_old.json", jobfile="to_csv.json")
         yield StatGovOKED(sourcefile="web_statgov_oked.json", jobfile="to_csv.json")
         yield StatGovKPVED(sourcefile="web_statgov_kpved.json", jobfile="to_csv.json")
         yield StatGovNVED(sourcefile="web_statgov_nved.json", jobfile="to_csv.json")
