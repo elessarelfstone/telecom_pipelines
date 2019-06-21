@@ -93,12 +93,15 @@ class XLSParser(Source):
 
     @staticmethod
     def path(srconf, jobconf, dpath):
-        action = HandlersFactory.get_handler(XLSParser.handler_name(jobconf))
+        action = HandlersFactory.get_handler(XLSParser.handler_name(srconf, jobconf))
         return action().path(srconf, jobconf, dpath)
 
     @staticmethod
-    def handler_name(jobconf):
-        name = "xlsparse_to_" + Box(json.loads(jobconf)).data_format
+    def handler_name(srconf, jobconf):
+        name = 'xlsparse'
+        if 'custom_id' in Box(json.loads(srconf)).storage:
+            name += '_'+Box(json.loads(srconf)).storage.custom_id
+        name += '_to_'+Box(json.loads(jobconf)).data_format
         return name
 
 
