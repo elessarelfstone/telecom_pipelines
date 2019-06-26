@@ -144,6 +144,7 @@ class ParseOkedToCsv():
         df['level2'] = np.array(lv1)
         df['level3'] = np.array(lv2)
         df['level4'] = np.array(lv3)
+        df[0] = df[0].str.replace('.', '')
         df.to_csv(fpath, sep=sep, encoding='utf-8', header=None, index=None)
         return df
 
