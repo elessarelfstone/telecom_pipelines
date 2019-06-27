@@ -94,11 +94,14 @@ class ParseOkedToCsv():
     @staticmethod
     def get_codes(df):
         codes = df.iloc[:, 0].tolist()
+        print(codes[813:820])
         result = []
         current_root = codes[0]
-        for code in codes:
+        for i, code in enumerate(codes):
             if ('.' in str(code)) or (str(code).replace('.', '').isdigit()):
                 result.append('{}.{}'.format(current_root, code))
+            elif pd.isna(code):
+                df.drop([df.index[i]], inplace=True)
             else:
                 result.append(code)
                 current_root = code
@@ -160,6 +163,7 @@ class ParseOkedToCsv():
         name = Box(json.loads(srconf)).name
         data_format = Box(json.loads(jobconf)).data_format
         return os.path.join(dpath, "{}.{}".format(name, data_format))
+
 
 class ParseFromAPIToCSV():
     @staticmethod
