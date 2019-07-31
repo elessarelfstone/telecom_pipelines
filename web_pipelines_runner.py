@@ -51,9 +51,9 @@ class WebPipelinesRunner(luigi.WrapperTask):
         yield DataGovUnemploymentPercentRate(sourcefile="web_datagov_unemployment_percent_rate.json", jobfile="to_csv.json")
 
 
-telegram_chats_id = [int(chat_id) for chat_id in NOTIFIED_TELEGRAMS.split(';')]
-lgtg = MyNotification('711584403:AAGLj7MAly4dqlhvSj3Ymr9tmGOXeURPbcw', telegram_chats_id)
-lgtg.set_handlers()
+# telegram_chats_id = [int(chat_id) for chat_id in NOTIFIED_TELEGRAMS.split(';')]
+# lgtg = MyNotification('711584403:AAGLj7MAly4dqlhvSj3Ymr9tmGOXeURPbcw', telegram_chats_id)
+# lgtg.set_handlers()
 
 if __name__ == '__main__':
     luigi.run()
