@@ -33,8 +33,9 @@ class ParseFromExcelToCSV():
                                    index_col=None,
                                    dtype=str,
                                    header=None)
-
                 data = data.append(df, ignore_index=True)
+        # for col in data.select_dtypes(include=['object']).columns:
+        #     data[col] = data[col].str.replace('"', '')
         data = data.replace(['nan', 'None'], '', regex=True)
         return data
 
@@ -234,6 +235,9 @@ class ParseJavaScriptJsonToCSV():
         name = Box(json.loads(srconf)).name
         data_format = Box(json.loads(jobconf)).data_format
         return os.path.join(dpath, "{}.{}".format(name, data_format))
+
+
+
 
 
 HandlersFactory.register("xlsparse_to_csv", ParseFromExcelToCSV)

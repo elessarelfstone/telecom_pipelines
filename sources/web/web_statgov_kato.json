@@ -18,12 +18,11 @@
    "hij": "str",
    "k": "str",
    "name_kaz": "str",
-   "name_rus": "str",
-   "nn": "str"
+   "name_rus": "str"
   },
   "area": {
       "indent": {
-        "top": 3
+        "top": 1
       }
   },
  "sheets" : [0],
