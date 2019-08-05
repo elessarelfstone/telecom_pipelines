@@ -89,6 +89,9 @@ class ParseOkedToCsv():
                                    header=None)
 
                 data = data.append(df, ignore_index=True)
+        for col in data.select_dtypes(include=['object']).columns:
+            data[col] = data[col].str.replace(';', '.')
+            data[col] = data[col].str.strip()
         data = data.replace(['nan', 'None'], '', regex=True)
         return data
 
