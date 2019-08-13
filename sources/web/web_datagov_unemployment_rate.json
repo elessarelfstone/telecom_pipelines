@@ -1,5 +1,5 @@
 {
- "url":"http://data.egov.kz/api/v2/monokalalardagy_zhumyssyzdyk_d/v10?source={}",
+ "url":"http://data.egov.kz/api/v2/monokalalardagy_zhumyssyzdyk_d/v10?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
  "name": "datagov_unemployment_rate_monocity",
  "storage": {
    "store": "web",
