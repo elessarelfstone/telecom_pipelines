@@ -1,5 +1,5 @@
 {
- "url":"http://data.egov.kz/api/v2/zhumyssyzdyk_dengeii1/v11?source={}",
+ "url":"http://data.egov.kz/api/v2/zhumyssyzdyk_dengeii1/v11?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
  "name": "datagov_unemployment_percent_rate",
  "storage": {
    "store": "web",
