@@ -90,3 +90,14 @@ class DataGovUnemploymentRate(CopyFromParsingToFtp):
 
 class DataGovUnemploymentPercentRate(CopyFromParsingToFtp):
     pass
+
+
+class DataGovKunkoristinEnTomengi(CopyFromParsingToFtp):
+    pass
+
+
+class DataGovAzykTulikKorzhynyKun(CopyFromParsingToFtp):
+    pass
+
+class DataGovHalyktynOrtashaZhanBasyna(CopyFromParsingToFtp):
+    pass

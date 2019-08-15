@@ -68,9 +68,9 @@ class Utils():
     @staticmethod
     def get_json_data(query):
         try:
-            raw = requests.get(query)
+            raw = requests.get(query, verify=False)
             json_data = json.loads(raw.text)
             return json_data
         except Exception as e:
-            Utils.write_file('test.txt', raw.text)
+            raise
 

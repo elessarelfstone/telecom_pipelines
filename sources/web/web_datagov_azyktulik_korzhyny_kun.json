@@ -1,0 +1,26 @@
+{
+ "url":"https://data.egov.kz/api/v4/tabysy_azyk-tulik_korzhyny_kun/{}?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
+ "versions": ["v1", "v2", "v3", "v4"],
+ "name": "datagov_azyk_tulik_korzhyny_kun",
+ "storage": {
+   "store": "web",
+   "location_type": "api",
+   "entity": "raw",
+   "type" : "json"
+ },
+  "data": {
+    "header": {
+      "rate" : "float",
+      "subject_ru": "str",
+      "measure_ru": "str",
+      "year": "int",
+      "subject_kz": "str",
+      "measure_kz": "str"
+    },
+    "query": {
+      "size": 10000,
+      "from": null
+    },
+    "description": "Доля населения, имеющие доходы ниже стоимости продовольственной корзины"
+  }
+}

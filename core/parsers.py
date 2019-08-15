@@ -186,23 +186,26 @@ class ParseFromAPIToCSV():
     def parse(instance, fpath):
         url = Box(json.loads(instance.srconf)).url
         conf_query = dict(Box(json.loads(instance.srconf)).data.query)
-        local_query = {"from": 1}
-        data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
-        i = 0
-        while len(data):
-            data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
-            ParseFromAPIToCSV.write_data(fpath, data)
-            i += 1
-            frm = conf_query["size"] * i + 1
-            local_query = {"from": frm}
-            data = Utils.get_json_data(url.format(ParseFromAPIToCSV.get_query(local_query, conf_query)))
-            sleep(3)
+        versions = list(Box(json.loads(instance.srconf)).versions)
+        for v in versions:
+            local_query = {"from": 1}
+            data = Utils.get_json_data(url.format(v, ParseFromAPIToCSV.get_query(local_query, conf_query)))
+            i = 0
+            while len(data):
+                ParseFromAPIToCSV.write_data(fpath, data)
+                i += 1
+                frm = conf_query["size"] * i + 1
+                local_query = {"from": frm}
+                data = Utils.get_json_data(url.format(v, ParseFromAPIToCSV.get_query(local_query, conf_query)))
+                sleep(3)
 
     @staticmethod
     def path(srconf, jobconf, dpath):
         name = Box(json.loads(srconf)).name
         data_format = Box(json.loads(jobconf)).data_format
         return os.path.join(dpath, "{}.{}".format(name, data_format))
+
+
 
 
 class ParseJavaScriptJsonToCSV():

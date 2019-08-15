@@ -1,5 +1,6 @@
 {
- "url":"http://data.egov.kz/api/v2/zhumyssyzdyk_dengeii1/v11?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
+ "url":"https://data.egov.kz/api/v4/zhumyssyzdyk_dengeii1/{}?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
+ "versions": ["v7", "v8", "v9", "v10", "v11"],
  "name": "datagov_unemployment_percent_rate",
  "storage": {
    "store": "web",
@@ -9,12 +10,12 @@
  },
   "data": {
     "header": {
-      "subject_kz": "str",
       "subject_ru": "str",
+      "rate" : "float",
+      "year": "int",
       "measure_kz": "str",
       "measure_ru": "str",
-      "rate" : "float",
-      "year": "int"
+      "subject_kz": "str"
     },
     "query": {
       "size": 10000,

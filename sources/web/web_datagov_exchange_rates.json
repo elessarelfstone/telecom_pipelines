@@ -1,7 +1,8 @@
 {
  "url":"https://data.egov.kz/api/v4/s_pb/{}?apiKey=0e2f3cc298f748d49bbfaa59c8eaf152&source={}",
   "versions": ["data"],
- "name": "datagov_addresses",
+  "range": {"min": "1", },
+ "name": "datagov_exchange_rates",
  "storage": {
    "store": "web",
    "location_type": "api",

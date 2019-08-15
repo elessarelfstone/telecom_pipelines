@@ -49,6 +49,9 @@ class WebPipelinesRunner(luigi.WrapperTask):
         yield DataGovAddresses(sourcefile="web_datagov_addresses.json", jobfile="to_csv.json")
         yield DataGovUnemploymentRate(sourcefile="web_datagov_unemployment_rate.json", jobfile="to_csv.json")
         yield DataGovUnemploymentPercentRate(sourcefile="web_datagov_unemployment_percent_rate.json", jobfile="to_csv.json")
+        yield DataGovKunkoristinEnTomengi(sourcefile="web_datagov_kunkoristin_en_tomengi.json", jobfile="to_csv.json")
+        yield DataGovAzykTulikKorzhynyKun(sourcefile="web_datagov_azyktulik_korzhyny_kun.json", jobfile="to_csv.json")
+        yield DataGovHalyktynOrtashaZhanBasyna(sourcefile="web_datagov_halyktyn_ortasha_zhan_basyna.json", jobfile="to_csv.json")
 
 
 # telegram_chats_id = [int(chat_id) for chat_id in NOTIFIED_TELEGRAMS.split(';')]
