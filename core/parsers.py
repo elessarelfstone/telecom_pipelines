@@ -98,7 +98,7 @@ class ParseOkedToCsv():
     @staticmethod
     def get_codes(df):
         codes = df.iloc[:, 0].tolist()
-        print(codes[813:820])
+        # print(codes[813:820])
         result = []
         current_root = codes[0]
         for i, code in enumerate(codes):
@@ -111,6 +111,7 @@ class ParseOkedToCsv():
                 current_root = code
         return result
 
+
     @staticmethod
     def get_levels(codes):
         level0, level1, level2, level3 = [None] * len(codes), [None] * len(codes), [None] * len(codes), [None] * len(
@@ -118,19 +119,22 @@ class ParseOkedToCsv():
 
         for i, code in enumerate(codes):
             buff = str(code).split('.')
-            if len(buff) == 1:
+            size = len(buff)
+            if size == 1:
                 level0[i], level1[i], level2[i], level3[i] = '', '', '', ''
-            elif len(buff) == 2:
+            elif size == 2:
                 level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), '', '', ''
             elif len(buff) == 3:
                 if len(buff[2]) == 1:
                     level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '', ''
                 else:
                     level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '{}{}'.format(buff[1].replace('.', ''),
-                                                                                                  buff[2][1]).replace('.', ''), ''
-            elif len(buff) == 4:
-                level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '{}{}'.format(buff[1].replace('.', ''), buff[2][1].replace('.', '')), '{}{}'.format(buff[1].replace('.', ''), buff[2].replace('.', ''))
+                                                                                                  buff[2][0]).replace('.', ''), ''
+            elif size == 4:
+                level0[i], level1[i], level2[i], level3[i] = buff[0].replace('.', ''), buff[1].replace('.', ''), '{}{}'.format(buff[1].replace('.', ''), buff[2][0].replace('.', '')), '{}{}'.format(buff[1].replace('.', ''), buff[2].replace('.', ''))
         return level0, level1, level2, level3
+
+
 
     @staticmethod
     def save(df, srconf, jobconf, fpath):
