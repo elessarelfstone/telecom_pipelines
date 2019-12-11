@@ -1,5 +1,5 @@
 {
- "url":"http://stat.gov.kz/api/getFile/?docId=ESTAT310324",
+ "url":"https://stat.gov.kz/api/getFile/?docId=ESTAT310324",
  "name": "statgov_oked",
  "storage": {
    "store": "web",

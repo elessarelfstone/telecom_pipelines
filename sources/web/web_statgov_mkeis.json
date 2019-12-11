@@ -1,5 +1,5 @@
 {
- "url":"http://old.stat.gov.kz/getImg?id=ESTAT093569",
+ "url":"https://stat.gov.kz/api/getFile/?docId=ESTAT316776",
  "name": "statgov_mkeis",
   "storage": {
    "store": "web",

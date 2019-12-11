@@ -1,5 +1,5 @@
 {
- "url":"http://old.stat.gov.kz/getImg?id=ESTAT116572",
+ "url":"https://stat.gov.kz/api/getFile/?docId=ESTAT116572",
  "name": "statgov_oked_old",
  "storage": {
    "store": "web",
