@@ -16,7 +16,7 @@ class DownloaderByUrlToFile():
     def download(self, instance, fpath):
         try:
             url = Box(json.loads(instance.srconf)).url
-            result = requests.get(url)
+            result = requests.get(url, verify=False)
             with open(fpath, 'wb') as f:
                 f.write(result.content)
             return fpath
@@ -37,7 +37,7 @@ class DownloaderByUrlListToFile():
     def download(self, instance, fpath):
         try:
             for url, path in zip(self.urls(instance.srconf), fpath):
-                result = requests.get(url)
+                result = requests.get(url, verify=False)
                 with open(path, 'wb') as f:
                     f.write(result.content)
             return fpath
@@ -71,7 +71,7 @@ class DownloaderByUrlStatGovCompanies():
     def download(self, instance, fpath):
         try:
             for url, path in zip(self.urls(instance.srconf), fpath):
-                result = requests.get(url)
+                result = requests.get(url, verify=False)
                 with open(path, 'wb') as f:
                     f.write(result.content)
             return fpath
