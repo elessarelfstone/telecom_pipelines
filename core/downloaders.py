@@ -82,7 +82,7 @@ class DownloaderByUrlStatGovCompanies():
     def urls(conf):
         url = Box(json.loads(conf)).url
         base_url = Box(json.loads(conf)).base_url
-        js = requests.get(url).text
+        js = requests.get(url, verify=False).text
         regex = Box(json.loads(conf)).storage.html.url_regexp
         res = re.findall(regex, js)
         urls = ["{}{}".format(base_url, res) for res in res]
